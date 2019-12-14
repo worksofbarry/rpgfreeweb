@@ -16,9 +16,10 @@
 </head>
 
 <body>
-  <div class="container-fluid" class="scroll">
+  <div  class="overflow-auto">
+  <div class="container-fluid">
     <div class="row mt-5">
-      <div class="col-md-6">
+      <div class="col-md-6" > 
         <h3>Input</h3>
         <textarea id="input" rows="20">
      FCZGD02A0  IF   E           K DISK    INCLUDE(CZTD02A2) PREFIX(D20:3)
@@ -142,10 +143,15 @@
         </div>
         <div>
           <h3>Upload File!</h3>
+            <form action="fileupload" method="post" enctype="multipart/form-data">
+            <input type="file" name="filetoupload"><br>
+            <input type="submit">
+            </form>'
         </div>
       </div>
     </div>
   </div>
+</div>
 </body>
 
 </html>
