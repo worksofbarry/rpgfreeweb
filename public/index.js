@@ -12,7 +12,7 @@ function convertCode() {
   var indent = userDefinedTab.value;
   //var lines = $('#input').val().split('\n');
   
-  //console.log('lines after split  : '  + lines );  
+  console.log('lines after split  : '  + lines );  
   
   var xhr = new XMLHttpRequest();
   xhr.open("POST", "/convert", true);

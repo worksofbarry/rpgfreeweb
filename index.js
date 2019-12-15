@@ -17,7 +17,8 @@ app.use('/', express.static('public'));
 app.post('/convert', function(req, res) {
   var lines = req.body.lines;
   var indent = req.body.indent;
- // console.log(' lines in  :'  + lines ); 
+  var a = JSON.stringify(lines); 
+ console.log(' lines in  :'  + a ); 
   lines.push('', '');
  
   var conv = new RPG(lines, Number(indent));
@@ -33,7 +34,7 @@ app.post('/fileupload', function(req, res) {
       form.parse(req, function (err, fields, files) {
         var oldpath = files.filetoupload.path;
         var newpath = 'C:/Users/krishna/Documents/a/' + files.filetoupload.name;
-        var newLine = ' ' ; 
+        var newLine = []; 
         fs.rename(oldpath, newpath, function (err) {
           if (err) throw err;
             const readInterface = readline.createInterface({
@@ -45,17 +46,21 @@ app.post('/fileupload', function(req, res) {
             let i = 0 ;  
             readInterface.on('line', function(line) {
             //console.log('line  '+ i++ + ' :' + line);
-            newLine = newLine + line + ' ,' ; 
-            //console.log(' new line  '+ newLine);
+            newLine.push( line ) ; 
+            console.log(' new line  '+ newLine[i]);
+            i++
          
              });
 
             // end
             readInterface.on('close', function(line) {
+              //newLineObj = JSON.parse('{' + newLine + '}' ); 
+              //newLineObj = JSON.stringify({newLine})
+              //newLineObj.push('', '');
               var conv = new RPG(newLine, Number('2'));
               conv.parse();
               let c = JSON.stringify(conv.lines); 
-              console.log(' something: ' + c);
+              console.log(' something: ' + c );
             }); 
                       
           res.end();
