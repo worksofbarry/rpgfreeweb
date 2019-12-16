@@ -36,7 +36,7 @@ app.post('/fileupload', function(req, res) {
         var newpath = 'C:/Users/krishna/Documents/a/' + files.filetoupload.name;
         var newLine = []; 
         fs.rename(oldpath, newpath, function (err) {
-          if (err) throw err;
+            if (err) throw err;
             const readInterface = readline.createInterface({
               input: fs.createReadStream(newpath),
              // output: process.stdout,
@@ -45,22 +45,28 @@ app.post('/fileupload', function(req, res) {
            
             let i = 0 ;  
             readInterface.on('line', function(line) {
-            //console.log('line  '+ i++ + ' :' + line);
             newLine.push( line ) ; 
-            console.log(' new line  '+ newLine[i]);
+           // console.log(' new line  '+ newLine[i]);
             i++
-         
-             });
+            });
 
-            // end
+            // on file close 
             readInterface.on('close', function(line) {
-              //newLineObj = JSON.parse('{' + newLine + '}' ); 
-              //newLineObj = JSON.stringify({newLine})
-              //newLineObj.push('', '');
               var conv = new RPG(newLine, Number('2'));
               conv.parse();
-              let c = JSON.stringify(conv.lines); 
+              let c = conv.lines[0]; 
               console.log(' something: ' + c );
+              fs.unlink(newpath, (err) => {
+                if (err) throw err;
+               //file removed
+               // create file with same name  
+               var file = fs.createWriteStream(newpath);
+               file.on('error', function(err) { Console.log(err) });
+               conv.lines.forEach(value => file.write(`${value}\r\n`));
+               file.end();
+
+              })
+
             }); 
                       
           res.end();
