@@ -17,8 +17,6 @@ app.use('/', express.static('public'));
 app.post('/convert', function(req, res) {
   var lines = req.body.lines;
   var indent = req.body.indent;
-  var a = JSON.stringify(lines); 
- console.log(' lines in  :'  + a ); 
   lines.push('', '');
  
   var conv = new RPG(lines, Number(indent));
@@ -28,7 +26,6 @@ app.post('/convert', function(req, res) {
 });
 
 app.post('/fileupload', function(req, res) {
-  console.log('2222'); 
     if (req.url == '/fileupload') {
       var form = new formidable.IncomingForm();
       form.parse(req, function (err, fields, files) {
@@ -54,27 +51,23 @@ app.post('/fileupload', function(req, res) {
             readInterface.on('close', function(line) {
               var conv = new RPG(newLine, Number('2'));
               conv.parse();
-              let c = conv.lines[0]; 
-              console.log(' something: ' + c );
+              
               fs.unlink(newpath, (err) => {
                 if (err) throw err;
-               //file removed 
-               // create file with same name  and converted data 
-               var file = fs.createWriteStream(newpath);
-               file.on('error', function(err) { Console.log(err) });
-               conv.lines.forEach(value => file.write(`${value}\r\n`));
-               file.end();
-
+                var file = fs.createWriteStream(newpath);
+                file.on('error', function(err) { Console.log(err) });
+                conv.lines.forEach(value => file.write(`${value}\r\n`));
+                file.end();
+                file.on('close', function() {
+                  res.download(newpath); 
+                });
+               
               })
-
-            }); 
-                      
-          res.end();
+            });
         });
-   });
-    } else {
 
-         }
+     });
+    } 
   });
   
 
