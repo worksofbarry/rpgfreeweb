@@ -58,8 +58,8 @@ app.post('/fileupload', function(req, res) {
               console.log(' something: ' + c );
               fs.unlink(newpath, (err) => {
                 if (err) throw err;
-               //file removed
-               // create file with same name  
+               //file removed 
+               // create file with same name  and converted data 
                var file = fs.createWriteStream(newpath);
                file.on('error', function(err) { Console.log(err) });
                conv.lines.forEach(value => file.write(`${value}\r\n`));
