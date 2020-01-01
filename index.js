@@ -36,14 +36,12 @@ app.post('/fileupload', function(req, res) {
             if (err) throw err;
             const readInterface = readline.createInterface({
               input: fs.createReadStream(newpath),
-             // output: process.stdout,
               console: false
             });  
            
             let i = 0 ;  
             readInterface.on('line', function(line) {
             newLine.push( line ) ; 
-           // console.log(' new line  '+ newLine[i]);
             i++
             });
 
