@@ -9,10 +9,11 @@ const fs = require('fs');
 const app = express();
 const port = 9123;
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json({limit: '10mb', extended: true}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true }));
 
 app.use('/', express.static('public'));
+
 
 app.post('/convert', function(req, res) {
   var lines = req.body.lines;
