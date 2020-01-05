@@ -40,14 +40,12 @@ app.post('/fileupload', function(req, res) {
             console: false
           });  
            
-          let i = 0 ;  
           readInterface.on('line', function(line) {
           newLine.push( line ) ; 
-          i++
           });
-
+          
           // on file close 
-          readInterface.on('close', function(line) {
+          readInterface.on('close', (line) => {
             var conv = new RPG(newLine, Number('2'));
             conv.parse();
               
@@ -62,10 +60,10 @@ app.post('/fileupload', function(req, res) {
               });
             });
           });
+
         });
       });
   } 
 });
   
-
 app.listen(port, () => console.log(`rpgfreeweb listening on port ${port}!`))
