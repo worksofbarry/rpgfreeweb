@@ -41,7 +41,7 @@ app.post('/fileupload', function(req, res) {
           });  
            
           readInterface.on('line', function(line) {
-          newLine.push( line ) ; 
+            newLine.push( line ) ; 
           });
           
           // on file close 
