@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const formidable = require('formidable');
 const readline = require('readline');
 const express = require('express');
+const path = require('path');
 const fs = require('fs');
 const app = express();
 const port = 9123;
@@ -32,8 +33,10 @@ app.post('/fileupload', function(req, res) {
     var form = new formidable.IncomingForm();
       form.parse(req, function (err, fields, files) {
         var oldpath = files.filetoupload.path;
-        // Use your system's path 
-        var newpath = __dirname +'\\' + files.filetoupload.name;
+        // Using your system's path 
+        var newpath = path.join(__dirname , '\\' ,files.filetoupload.name);
+        console.log('path' + newpath);
+        
         try {
           if (fs.existsSync(newpath)) {
             //file exists
