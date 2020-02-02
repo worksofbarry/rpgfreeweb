@@ -16,6 +16,7 @@ app.use('/', express.static('public'));
 
 
 app.post('/convert', function(req, res) {
+  
   var lines = req.body.lines;
   var indent = req.body.indent;
   lines.push('', '');
@@ -32,7 +33,8 @@ app.post('/fileupload', function(req, res) {
       form.parse(req, function (err, fields, files) {
         var oldpath = files.filetoupload.path;
         // Use your system's path 
-        var newpath = 'C:/Users/User-name/Documents/tmpRPG/' + files.filetoupload.name;
+        var newpath = __dirname +'\\' + files.filetoupload.name;
+        console.log(newpath);
         var newLine = []; 
         fs.rename(oldpath, newpath, function (err) {
           if (err) throw err;
