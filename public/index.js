@@ -27,5 +27,5 @@ function convertCode() {
       }
   }
 
-  //$('#myTextarea').val('');
+
 }

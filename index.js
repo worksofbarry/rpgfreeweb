@@ -34,7 +34,15 @@ app.post('/fileupload', function(req, res) {
         var oldpath = files.filetoupload.path;
         // Use your system's path 
         var newpath = __dirname +'\\' + files.filetoupload.name;
-        console.log(newpath);
+        try {
+          if (fs.existsSync(newpath)) {
+            //file exists
+            fs.unlinkSync(newpath)
+          }
+        } catch(err) {
+          console.error(err)
+        }
+        
         var newLine = []; 
         fs.rename(oldpath, newpath, function (err) {
           if (err) throw err;
@@ -60,6 +68,7 @@ app.post('/fileupload', function(req, res) {
               file.end();
               file.on('close', function() {
                 res.download(newpath); 
+                  
               });
             });
           });
