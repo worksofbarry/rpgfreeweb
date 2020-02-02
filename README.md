@@ -6,8 +6,7 @@ Fixed to free converter written in Node.js JavaScript which you can self host. T
 
 1. clone repo
 2. `npm i`
-3. `npm install formidable'
-4. `node index` to run the server
+3. `node index` to run the server
 
 ### Issues
 
