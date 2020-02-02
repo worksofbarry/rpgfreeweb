@@ -35,8 +35,7 @@ app.post('/fileupload', function(req, res) {
         var oldpath = files.filetoupload.path;
         // Using your system's path 
         var newpath = path.join(__dirname , '\\' ,files.filetoupload.name);
-        console.log('path' + newpath);
-        
+              
         try {
           if (fs.existsSync(newpath)) {
             //file exists
