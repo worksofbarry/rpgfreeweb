@@ -6,8 +6,8 @@ const express = require('express')
 const app = express();
 const port = 9123;
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json({limit: '10mb', extended: true}));
+app.use(bodyParser.urlencoded({limit: '10mb', extended: true }));
 
 app.use('/', express.static('public'));
 
