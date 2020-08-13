@@ -4,11 +4,11 @@ function convertCode() {
   var userDefinedTab = document.getElementById('userDefinedTab');
   var output = document.getElementById('output');
   var messages = document.getElementById('messages');
+  var inputstring = JSON.stringify(input.value);
   
   var lines = input.value.split('\n');
   var indent = userDefinedTab.value;
-  //var lines = $('#input').val().split('\n');
-
+  
   var xhr = new XMLHttpRequest();
   xhr.open("POST", "/convert", true);
   xhr.setRequestHeader("Content-Type", "application/json");
@@ -27,5 +27,5 @@ function convertCode() {
       }
   }
 
-  //$('#myTextarea').val('');
+
 }
